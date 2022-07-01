@@ -10,7 +10,10 @@ import matter from "gray-matter";
 
 type Hoge = {
   fileNames: string[],
-  articles: string[]
+  articles: {
+    title: string,
+    content: string
+  }[]
 }
 
 export const getStaticProps = () => {
@@ -24,7 +27,11 @@ export const getStaticProps = () => {
     .use(html)
     .process(matterResult.content);
     const contentHtml = processedContent.toString();
-    articles.push(contentHtml)
+    const hoge: any = {
+      title: matterResult.content,
+      content: contentHtml
+    }
+    articles.push(hoge)
   })
   return  {
     props: {
@@ -36,7 +43,7 @@ export const getStaticProps = () => {
 
 const Home: NextPage<Hoge> = ({ fileNames, articles }) => {
   useEffect(() => {
-    console.log(fileNames)
+    console.log(articles)
   }, [])
   console.log(articles)
   return (
@@ -52,7 +59,7 @@ const Home: NextPage<Hoge> = ({ fileNames, articles }) => {
         <div>
           {articles.map((elem, index) => {
             return (
-              <div dangerouslySetInnerHTML={{ __html: elem }} key={index} />
+              <div dangerouslySetInnerHTML={{ __html: elem.content }} key={index} />
             )
           })}
       </div>
