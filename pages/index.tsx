@@ -9,7 +9,7 @@ type Hoge = {
   article: string  
 }
 
-export const getStaticProps = () => {
+export const getStaticProps = async () => {
   const article = String(fs.readFileSync('./public/articles/01.md'))
   return  {
     props: {
