@@ -4,25 +4,41 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect } from 'react'
 import styles from '../styles/Home.module.css'
+import { remark } from 'remark';
+import html from 'remark-html';
+import matter from "gray-matter";
 
 type Hoge = {
-  article: string  
+  fileNames: string[],
+  articles: string[]
 }
 
-export const getStaticProps = async () => {
-  const article = String(fs.readFileSync('./public/articles/01.md'))
+export const getStaticProps = () => {
+  const fileNames = fs.readdirSync('./public/articles');
+  const articles: string[] = []
+  fileNames.forEach(async (elem) => {
+    const article = fs.readFileSync('./public/articles/' + elem)
+    const matterResult: any = matter(article);
+    // Use remark to convert markdown into HTML string
+    const processedContent = await remark()
+    .use(html)
+    .process(matterResult.content);
+    const contentHtml = processedContent.toString();
+    articles.push(contentHtml)
+  })
   return  {
     props: {
-      article
+      fileNames,
+      articles
     }
   }
 }
 
-const Home: NextPage<Hoge> = ({ article }) => {
+const Home: NextPage<Hoge> = ({ fileNames, articles }) => {
   useEffect(() => {
-    console.log('iwjefblwie')
+    console.log(fileNames)
   }, [])
-  console.log(article)
+  console.log(articles)
   return (
     <div className={styles.container}>
       <Head>
@@ -33,6 +49,13 @@ const Home: NextPage<Hoge> = ({ article }) => {
 
       <main className={styles.main}>
         <h1>ブログだお</h1>
+        <div>
+          {articles.map((elem, index) => {
+            return (
+              <div dangerouslySetInnerHTML={{ __html: elem }} key={index} />
+            )
+          })}
+      </div>
       </main>
     </div>
   )

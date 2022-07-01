@@ -9,7 +9,8 @@ import html from 'remark-html';
 import matter from "gray-matter";
 
 type Hoge = {
-  contentHtml: string  
+  contentHtml: string,
+  matterResult: any
 }
 
 export async function getStaticPaths() {
@@ -19,7 +20,7 @@ export async function getStaticPaths() {
         id: '1'
       } }
     ],
-    fallback: true // false or 'blocking'
+    fallback: false // false or 'blocking'
   };
 }
 
@@ -41,9 +42,8 @@ export const getStaticProps = async () => {
   }
 }
 
-const Home: NextPage<Hoge> = ({ contentHtml }) => {
+const Home: NextPage<Hoge> = ({ matterResult, contentHtml }) => {
   useEffect(() => {
-    // console.log('iwjefblwie')
   }, [])
   console.log(contentHtml)
   return (
