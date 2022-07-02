@@ -3,13 +3,14 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect } from 'react'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/Home.module.scss'
 import { remark } from 'remark';
 import html from 'remark-html';
 import matter from "gray-matter";
+import Link from 'next/link'
 
 type Hoge = {
-  fileNames: string[],
+  pathNames: string[],
   articles: {
     title: string,
     content: string
@@ -19,6 +20,7 @@ type Hoge = {
 export const getStaticProps = () => {
   const fileNames = fs.readdirSync('./public/articles');
   const articles: string[] = []
+  const pathNames: string[] = []
   fileNames.forEach(async (elem) => {
     const article = fs.readFileSync('./public/articles/' + elem)
     const matterResult: any = matter(article);
@@ -28,24 +30,25 @@ export const getStaticProps = () => {
     .process(matterResult.content);
     const contentHtml = processedContent.toString();
     const hoge: any = {
-      title: matterResult.content,
+      title: matterResult.content.split(/\r\n|\n/)[0].replace(/# /g, ''),
       content: contentHtml
     }
+    fileNames.forEach((elem) => {
+      pathNames.push(elem.replace(/.md/g, ''))
+    })
     articles.push(hoge)
   })
   return  {
     props: {
-      fileNames,
+      pathNames,
       articles
     }
   }
 }
 
-const Home: NextPage<Hoge> = ({ fileNames, articles }) => {
+const Home: NextPage<Hoge> = ({ pathNames, articles }) => {
   useEffect(() => {
-    console.log(articles)
   }, [])
-  console.log(articles)
   return (
     <div className={styles.container}>
       <Head>
@@ -56,10 +59,12 @@ const Home: NextPage<Hoge> = ({ fileNames, articles }) => {
 
       <main className={styles.main}>
         <h1>ブログだお</h1>
-        <div>
+        <div className={styles['article-wrapper']}>
           {articles.map((elem, index) => {
             return (
-              <div dangerouslySetInnerHTML={{ __html: elem.content }} key={index} />
+              <Link href={"/article/" + pathNames[index]} key={index}>
+                {elem.title}
+              </Link>
             )
           })}
       </div>
