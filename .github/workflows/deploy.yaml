@@ -26,4 +26,5 @@ jobs:
           port: ${{ secrets.DEPLOY_PORT }}
           script: |
             cd ${{ secrets.DEPLOY_DIR }}
-            mkdir hoge
+            git pull origin develop
+            npm install
