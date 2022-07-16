@@ -20,10 +20,10 @@ jobs:
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
+          key: ${{ secrets.DEPLOY_KEY }}
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           port: ${{ secrets.DEPLOY_PORT }}
-          key: ${{ secrets.DEPLOY_KEY }}
           script: |
             cd ${{ secrets.DEPLOY_DIR }}
             mkdir hoge
