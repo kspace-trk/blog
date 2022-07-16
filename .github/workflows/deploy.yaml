@@ -28,3 +28,4 @@ jobs:
             cd ${{ secrets.DEPLOY_DIR }}
             git pull origin develop
             npm install
+            npm run build
