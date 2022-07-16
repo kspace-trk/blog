@@ -26,4 +26,4 @@ jobs:
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
             cd ${{ secrets.DEPLOY_DIR }}
-            mkdir hoge
+            git pull origin develop
