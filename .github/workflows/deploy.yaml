@@ -15,6 +15,7 @@ jobs:
       - run: npm install
       - run: npm run build
       - run: ls
+      - run: pwd
       - name: rsync deployments
         uses: burnett01/rsync-deployments@5.2
         with:
