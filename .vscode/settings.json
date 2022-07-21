@@ -1,0 +1,5 @@
+{
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "file:///Users/knakao/src/github.com/kspace-trk/blog/.github/workflows/deploy.yaml"
+  }
+}
