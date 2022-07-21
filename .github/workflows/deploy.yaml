@@ -14,9 +14,10 @@ jobs:
           node-version: '16'
       - run: npm install
       - run: npm run build
-      - run: ls /github/workspace
+      - run: sudo apt-get install tree
+      - run: cd /
+      - run: tree
       - run: pwd
-      - run: cd ../ | ls
       - name: rsync deployments
         uses: burnett01/rsync-deployments@5.2
         with:
