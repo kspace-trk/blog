@@ -14,7 +14,7 @@ jobs:
           node-version: '16'
       - run: npm install
       - run: npm run build
-      - run: ls
+      - run: ls /github/workspace
       - run: pwd
       - run: cd ../ | ls
       - name: rsync deployments
