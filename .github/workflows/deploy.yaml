@@ -1,9 +1,9 @@
 name: deploy
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ master ]
   pull_request:
-    branches: [ master, develop ]
+    branches: [ master ]
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -14,13 +14,8 @@ jobs:
           node-version: '16'
       - run: npm install
       - run: npm run build
-      - run: sudo apt-get install tree
-      - run: cd /
-      - run: rm -rf node_modules
-      - run: tree
-      - run: pwd
       - name: rsync deployments
-        uses: burnett01/rsync-deployments@5.2
+        uses: burnett01/rsync-deployments@5.3
         with:
           switches: -avzr --delete
           path: out/
