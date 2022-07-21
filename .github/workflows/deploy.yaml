@@ -16,6 +16,7 @@ jobs:
       - run: npm run build
       - run: sudo apt-get install tree
       - run: cd /
+      - run: rm -rf node_modules
       - run: tree
       - run: pwd
       - name: rsync deployments
