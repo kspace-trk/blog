@@ -13,3 +13,22 @@ constは、コンパイル時に値を決定するため、上記のコードは
 final datetime = DateTime.now();
 これならいける。
 finalは、1度格納した変数には上書きできないというもので、必ずしもコンパイル時に決定する必要はない。
+
+## コンストラクタ
+```
+class Hoge {
+  String name = "";
+  Hoge(String name) {
+    this.name = name;
+  }
+}
+```
+こんなコンストラクタがあったとする
+
+これは以下のように省略することができる
+```
+class Hoge {
+  String name;
+  Hoge(String name);
+}
+```
