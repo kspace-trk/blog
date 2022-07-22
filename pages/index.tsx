@@ -58,7 +58,7 @@ const Home: NextPage<Hoge> = ({ pathNames, articles }) => {
       </Head>
 
       <main className={styles.main}>
-        <h1>ブログだお</h1>
+        <h1>わいの日記</h1>
         <div className={styles['article-wrapper']}>
           {articles.map((elem, index) => {
             return (
