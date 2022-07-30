@@ -42,8 +42,6 @@ export const getStaticProps = async (context: any) => {
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
 
-  await axios.post('https://access-to-webhook.k-space.workers.dev/');
-
   return  {
     props: {
       contentHtml
@@ -53,6 +51,10 @@ export const getStaticProps = async (context: any) => {
 
 const Home: NextPage<Hoge> = ({ matterResult, contentHtml }) => {
   useEffect(() => {
+    const hoge = async () => {
+      await axios.post('https://access-to-webhook.k-space.workers.dev/');
+    }
+    hoge();
   }, [])
   return (
     <div className={article.wrapper}>

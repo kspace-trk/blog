@@ -19,7 +19,7 @@ type Hoge = {
   }[]
 }
 
-export const getStaticProps = () => {
+export const getStaticProps = async () => {
   const fileNames = fs.readdirSync('./public/articles');
   const articles: string[] = []
   const pathNames: string[] = []
@@ -39,7 +39,6 @@ export const getStaticProps = () => {
       pathNames.push(elem.replace(/.md/g, ''))
     })
     articles.push(hoge)
-    await axios.post('https://access-to-webhook.k-space.workers.dev/');
   })
   return  {
     props: {
@@ -51,6 +50,10 @@ export const getStaticProps = () => {
 
 const Home: NextPage<Hoge> = ({ pathNames, articles }) => {
   useEffect(() => {
+    const hoge = async () => {
+      await axios.post('https://access-to-webhook.k-space.workers.dev/');
+    }
+    hoge();
   }, [])
   return (
     <div className={styles.container}>
