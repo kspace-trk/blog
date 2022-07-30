@@ -39,18 +39,7 @@ export const getStaticProps = () => {
       pathNames.push(elem.replace(/.md/g, ''))
     })
     articles.push(hoge)
-    const url = 'https://discord.com/api/webhooks/1002795864483446904/AgTWgGKnRdQO8eH9F2KlRU9UyhLWRCrK-7iWLGcenNuthjmTXA2wMJwn5jeCKZOSGB0_';
-    const config = {
-      headers: {
-          'Accept': 'application/json',
-          'Content-type': 'application/json',
-      }
-    }
-    const postData = {
-      username: 'blog',
-      content: '誰かがあなたのブログみてるよ！'
-    }
-    await axios.post(url, postData, config);
+    await axios.post('https://access-to-webhook.k-space.workers.dev/');
   })
   return  {
     props: {
