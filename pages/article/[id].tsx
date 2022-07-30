@@ -7,6 +7,7 @@ import { remark } from 'remark';
 import html from 'remark-html';
 import matter from "gray-matter";
 import article from '../../styles/article.module.scss';
+import axios from "axios";
 
 type Hoge = {
   contentHtml: string,
@@ -40,6 +41,8 @@ export const getStaticProps = async (context: any) => {
     .use(html)
     .process(matterResult.content);
   const contentHtml = processedContent.toString();
+
+  await axios.post('https://access-to-webhook.k-space.workers.dev/');
 
   return  {
     props: {
